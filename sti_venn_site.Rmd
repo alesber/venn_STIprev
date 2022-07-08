@@ -1,0 +1,109 @@
+---
+title: "STI Prevalence manuscript FIgure 2"
+author: "Allahna Esber"
+date: "1 July 2021"
+output:
+  pdf_document: default
+slide_level: 3
+---
+setwd("~/Desktop")
+library(haven)
+library(ggplot2)
+library(VennDiagram)
+library(tidyverse)
+library(ggpub)
+library(cowplot)
+library(gridExtra)
+
+library(rmarkdown)
+library(sjPlot)
+library(readstata13)
+library(glmnet)
+library(MASS)
+library(caret)
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(c060)
+library(peperr)
+library(pscl)
+library(pROC)
+library(ggplot2)
+library(generalhoslem)
+library(gtsummary)
+library(table1)
+
+stiv <- read_dta("venn.dta")
+
+overrideTriple=T
+sti <- draw.triple.venn(
+  area1 = 269 ,      # Size of the circle1.
+  area2 = 107,        # Size of the circle2.
+  area3 = 94,        # Size of the circle3.
+  n12 = 64,      # Size of the overlapping area of circle1 and 2.
+  n23 = 22,      # Size of the overlapping area of circle2 and 3.
+  n13 = 48,      # Size of the overlapping area of circle1 and 3.
+  n123 = 18, # Size of the overlapping area of circle1, 2, 3.
+  category = c("Anorectal", "Pharyngeal", "Urogenital"), # Label text. 
+  lty = "blank",           # Hide the border of circles.
+  fill = c("paleturquoise1", "steelblue2", "lightyellow2"),   # Color
+  fontfamily = "Arial",    # Font name for numbers.
+  cat.fontfamily ="Arial" ,
+  rotation = 1, reverse = FALSE, euler.d = F, scaled = F# Font name for labels.
+)
+ng <- draw.triple.venn(
+  area1 = 68 ,      # Size of the circle1.
+  area2 = 61,        # Size of the circle2.
+  area3 = 10,        # Size of the circle3.
+  n12 = 27,      # Size of the overlapping area of circle1 and 2.
+  n23 = 5,      # Size of the overlapping area of circle2 and 3.
+  n13 = 7,      # Size of the overlapping area of circle1 and 3.
+  n123 = 5, # Size of the overlapping area of circle1, 2, 3.
+  category = c("Anorectal", "Pharyngeal", "Urogenital"), # Label text. 
+  lty = "blank",           # Hide the border of circles.
+  fill = c("paleturquoise1", "steelblue2", "lightyellow2"),   # Color
+  fontfamily = "Arial",    # Font name for numbers.
+  cat.fontfamily ="Arial" , cex=1,
+  rotation = 1, reverse = FALSE, euler.d = F, scaled = F# Font name for labels.
+)
+mg <- draw.triple.venn(
+  area1 = 139,      # Size of the circle1.
+  area2 = 34,        # Size of the circle2.
+  area3 = 63,        # Size of the circle3.
+  n12 = 14,      # Size of the overlapping area of circle1 and 2.
+  n23 = 8,      # Size of the overlapping area of circle2 and 3.
+  n13 = 22,      # Size of the overlapping area of circle1 and 3.
+  n123 = 6, # Size of the overlapping area of circle1, 2, 3.
+  category = c("Anorectal", "Pharyngeal", "Urogenital"), # Label text. 
+  lty = "blank",           # Hide the border of circles.
+  fill = c("paleturquoise1", "steelblue2", "lightyellow2"),   # Color
+  fontfamily = "Arial",    # Font name for numbers.
+  cat.fontfamily ="Arial" ,  
+  rotation = 1, reverse = FALSE, euler.d = F, scaled = F# Font name for labels.
+)
+ct <- draw.triple.venn(
+  area1 = 106 ,      # Size of the circle1.
+  area2 = 25,        # Size of the circle2.
+  area3 = 27,        # Size of the circle3.
+  n12 = 17,      # Size of the overlapping area of circle1 and 2.
+  n23 = 1,      # Size of the overlapping area of circle2 and 3.
+  n13 = 8,      # Size of the overlapping area of circle1 and 3.
+  n123 = 1, # Size of the overlapping area of circle1, 2, 3.
+  category = c("Anorectal", "Pharyngeal", "Urogenital"), # Label text. 
+  lty = "blank",           # Hide the border of circles.
+  fill = c("paleturquoise1", "steelblue2", "lightyellow2"),   # Color
+  fontfamily = "Arial",    # Font name for numbers.
+  cat.fontfamily ="Arial" , cex=1,
+  rotation = 1, reverse = FALSE, euler.d = F, scaled = F# Font name for labels.
+)
+
+```{r message=F, warning=F, echo=F}
+
+require(gridExtra)
+grid.arrange() +
+  draw_plot(sti, x = 0.1, y = .51, width = .33, height = 0.40) + draw_label("a. All STIs", x = 0.25, y = .95, size=12) +
+  draw_plot(mg, x = .6, y = .51, width = .33, height = 0.40) +  draw_label("b. Mycoplasma genitalium", x = 0.75, y = .95, size=12) +
+  draw_plot(ng, x = 0.1, y = 0.01, width = .33, height = 0.40) + draw_label("c. Gonorrhea", x = 0.25, y = .45, size=12) +
+  draw_plot(ct, x = .6, y = 0.01, width = .33, height = 0.40) + draw_label("d. Chlamydia", x = 0.75, y = .45, size=12)
+```
+
